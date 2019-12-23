@@ -20,6 +20,13 @@ class App extends Component {
 
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+  }
+
+  shouldComponentUpdate(nextProp, nextState) {
+    const { counter } = this.state;
+    if (nextState.counter === counter) return false;
+    return true;
   }
 
   handleUp() {
@@ -31,10 +38,14 @@ class App extends Component {
     const { counter: ct } = this.state;
     this.setState({ counter: ct - 1 });
   }
+  
+  handleReset() {
+    this.setState({ counter: 0 });
+  }
 
   render() {
     const { counter } = this.state;
-
+    console.log('render');
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
@@ -46,6 +57,15 @@ class App extends Component {
             </View>
 
             <ButtonCustom action={this.handleUp} label="+"/>
+        </View>
+
+        <View style={styles.resetContainer}>
+            <TouchableOpacity
+              style={styles.btnReset}
+              onPress={this.handleReset}
+            >
+                <Text>Reset</Text>
+            </TouchableOpacity>
         </View>
       </View>
     );
@@ -64,6 +84,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
   },
+  resetContainer: {
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
   counterContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -73,6 +101,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#FFF',
     fontWeight: 'bold',
+  },
+  btnReset: {
+    height: 50,
+    width: 150,
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
