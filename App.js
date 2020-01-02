@@ -9,6 +9,7 @@
 import React, {Component, PureComponent} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import ButtonCustom from './components/button';
+import ActionButtons from './components/actionButtons';
 
 class App extends PureComponent {
   constructor(props) {
@@ -54,12 +55,7 @@ class App extends PureComponent {
         </View>
 
         <View style={styles.subcontainerReset}>
-            <TouchableOpacity
-                style={styles.btnReset}
-                onPress={this.handleReset}
-            >
-              <Text style={styles.btnTxt}>Reset</Text>
-            </TouchableOpacity>
+          <ActionButtons reset={this.handleReset} goBack={this.handleReset} />
         </View>
       </View>
     );
