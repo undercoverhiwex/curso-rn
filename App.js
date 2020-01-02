@@ -6,11 +6,11 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import ButtonCustom from './components/button';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -20,6 +20,7 @@ class App extends Component {
 
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleUp() {
@@ -32,9 +33,13 @@ class App extends Component {
     this.setState({ counter: ct - 1 });
   }
 
+  handleReset() {
+    this.setState({ counter: 0 });
+  }
+
   render() {
     const { counter } = this.state;
-
+    console.log('render');
     return (
       <View style={styles.container}>
         <View style={styles.subcontainer}>
@@ -46,6 +51,15 @@ class App extends Component {
             </View>
 
             <ButtonCustom action={this.handleUp} label="+"/>
+        </View>
+
+        <View style={styles.subcontainerReset}>
+            <TouchableOpacity
+                style={styles.btnReset}
+                onPress={this.handleReset}
+            >
+              <Text style={styles.btnTxt}>Reset</Text>
+            </TouchableOpacity>
         </View>
       </View>
     );
@@ -64,6 +78,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
   },
+  subcontainerReset: {
+    height: 50,
+    width: '100%',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
   counterContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -73,6 +96,18 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#FFF',
     fontWeight: 'bold',
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: '#7f8c8d',
+    fontWeight: 'bold',
+  },
+  btnReset: {
+    height: 50,
+    width: '80%',
+    backgroundColor: '#ecf0f1',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
