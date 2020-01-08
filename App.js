@@ -9,6 +9,7 @@
 import React, {Component, PureComponent} from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import ButtonCustom from './components/button';
+import ActionButtons from './components/actionButtons';
 
 class App extends PureComponent {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends PureComponent {
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handlePlus10 = this.handlePlus10.bind(this);
   }
 
   handleUp() {
@@ -35,6 +37,11 @@ class App extends PureComponent {
 
   handleReset() {
     this.setState({ counter: 0 });
+  }
+  
+  handlePlus10() {
+    const { counter: ct } = this.state;
+    this.setState({ counter: ct + 10 });
   }
 
   render() {
@@ -54,12 +61,7 @@ class App extends PureComponent {
         </View>
 
         <View style={styles.subcontainerReset}>
-            <TouchableOpacity
-                style={styles.btnReset}
-                onPress={this.handleReset}
-            >
-              <Text style={styles.btnTxt}>Reset</Text>
-            </TouchableOpacity>
+          <ActionButtons reset={this.handleReset} plus={this.handlePlus10}/>
         </View>
       </View>
     );
@@ -96,18 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: '#FFF',
     fontWeight: 'bold',
-  },
-  btnTxt: {
-    fontSize: 18,
-    color: '#7f8c8d',
-    fontWeight: 'bold',
-  },
-  btnReset: {
-    height: 50,
-    width: '80%',
-    backgroundColor: '#ecf0f1',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 
